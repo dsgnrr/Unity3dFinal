@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task4: Jumping. Side walk.
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task4/result.gif)
+
 ## Task3: Character base animation
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task3/result.gif)
 
