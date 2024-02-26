@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task5: Interaction between character and object
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task5/result.gif)
+
 ## Task4: Jumping. Side walk.
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task4/result.gif)
 
