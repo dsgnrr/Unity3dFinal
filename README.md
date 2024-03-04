@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task6: Coin spawn, Canvas
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task6/result.gif)
+
 ## Task5: Interaction between character and object
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task5/result.gif)
 

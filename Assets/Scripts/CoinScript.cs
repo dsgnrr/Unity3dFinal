@@ -5,9 +5,18 @@ using UnityEngine;
 public class CoinScript : MonoBehaviour
 {
     private Animator _animator;
+    const float minSpawnOffset = 50f;
+    float minSpawnDistance = 20f;
+    float maxSpawnDistance = 30f;
+    float maxHeightFactor = 1.5f;
+    float minHeightFactor = 0.7f;
+    float initialCoinHeight;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
+        initialCoinHeight = this.transform.position.y -
+          Terrain.activeTerrain.SampleHeight(this.transform.position);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -18,10 +27,28 @@ public class CoinScript : MonoBehaviour
     }
     public void OnDisappearFinish()
     {
-        Vector3 newPosition =
-        transform.position + Vector3.forward * 10f;
-        newPosition.y = 2f +
-            Terrain.activeTerrain.SampleHeight(newPosition);
+        Vector3 newPosition;
+        float distance;
+        int lim = 100;
+        do
+        {
+            newPosition = transform.position +
+                Vector3.forward * Random.Range(-maxSpawnDistance, maxSpawnDistance) +
+                Vector3.left * Random.Range(-maxSpawnDistance, maxSpawnDistance);
+
+            newPosition.y = initialCoinHeight * Random.Range(minHeightFactor, maxHeightFactor) +
+                Terrain.activeTerrain.SampleHeight(newPosition);
+
+            distance = Vector3.Distance(newPosition, transform.position);
+            lim--;
+        } while (lim > 0 && (distance < minSpawnDistance ||
+        distance > minSpawnDistance ||
+        newPosition.x < minSpawnOffset ||
+        newPosition.x > 1000 - minSpawnOffset ||
+        newPosition.y < minSpawnOffset ||
+        newPosition.y > 1000 - minSpawnOffset));
+
+
         transform.position = newPosition;
         _animator.SetInteger("State", 0);
     }
