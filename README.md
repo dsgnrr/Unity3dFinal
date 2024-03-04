@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task7: Radar, hint arrows
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task7/result.gif)
+
 ## Task6: Coin spawn, Canvas
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task6/result.gif)
 
