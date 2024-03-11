@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task8: Skybox
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task8/result.gif)
+
 ## Task7: Radar, hint arrows
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task7/result.gif)
 
