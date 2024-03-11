@@ -60,6 +60,29 @@ public class CharacterScript : MonoBehaviour
         horizontalForward = horizontalForward.normalized;
         this.transform.forward = horizontalForward;
 
+        float ds = Time.deltaTime / 5.0f;
+        if (Input.GetKey(KeyCode.LeftShift) && (dx != 0 || dy != 0))
+        {
+            if (GameState.CharacterStamina > ds)
+            {
+                dx *= 2.5f;
+                dy *= 2.5f;
+                GameState.CharacterStamina -= ds;
+            }
+
+        }
+        else
+        {
+            if (GameState.CharacterStamina < 1 - ds)
+            {
+                GameState.CharacterStamina += ds;
+            }
+            else
+            {
+                GameState.CharacterStamina = 1f;
+            }
+        }
+
         playerVelocityY += gravityValue * Time.deltaTime;
 
         _characterController.Move(Time.deltaTime *
