@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task10: PauseMenu
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task10/result.png)
+
 ## Task9: Portals, Stamina
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task9/result.gif)
 
