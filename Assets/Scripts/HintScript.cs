@@ -9,11 +9,15 @@ public class HintScript : MonoBehaviour
 
     private GameObject leftArrow;
     private GameObject rightArrow;
+    private GameObject content;
 
     void Start()
     {
-        leftArrow = GameObject.Find("HintsLeftArrow");
-        rightArrow = GameObject.Find("HintsRightArrow");
+        content = GameObject.Find("HintsContent");
+        leftArrow = GameObject.Find("HintsContentLeftArrow");
+        rightArrow = GameObject.Find("HintsContentRightArrow");
+        GameState.Subscribe(OnGameStateChanged);
+        OnGameStateChanged(nameof(GameState.isHintsVisible));
     }
 
     void Update()
@@ -51,5 +55,17 @@ public class HintScript : MonoBehaviour
             }
 
         }
+    }
+
+    private void OnGameStateChanged(string propName)
+    {
+        if (propName == nameof(GameState.isHintsVisible))
+        {
+            content.SetActive(GameState.isHintsVisible);
+        }
+    }
+    private void OnDestroy()
+    {
+        GameState.Unsubscribe(OnGameStateChanged);
     }
 }

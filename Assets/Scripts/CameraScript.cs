@@ -19,6 +19,8 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
+
         cameraAngles.y += Input.GetAxis("Mouse X");
         cameraAngles.x -= Input.GetAxis("Mouse Y");
         if (Input.GetKeyUp(KeyCode.V))
