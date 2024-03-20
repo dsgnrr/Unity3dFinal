@@ -1,5 +1,8 @@
 # FinalProject tasks
 
+## Task12: Score
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task12/result.gif)
+
 ## Task11: PauseMenu pt.2
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task11/result.gif)
 

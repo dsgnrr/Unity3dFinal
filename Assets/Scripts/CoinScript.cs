@@ -17,6 +17,7 @@ public class CoinScript : MonoBehaviour
         _animator = GetComponent<Animator>();
         initialCoinHeight = this.transform.position.y -
           Terrain.activeTerrain.SampleHeight(this.transform.position);
+        GameState.Subscribe(OnGameStateChange);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +27,12 @@ public class CoinScript : MonoBehaviour
         }
     }
     public void OnDisappearFinish()
+    {
+        GameState.Score += GameState.CoinCost;
+        Respawn();
+        _animator.SetInteger("State", 0);
+    }
+    private void Respawn()
     {
         Vector3 newPosition;
         float distance;
@@ -47,9 +54,18 @@ public class CoinScript : MonoBehaviour
         newPosition.x > 1000 - minSpawnOffset ||
         newPosition.y < minSpawnOffset ||
         newPosition.y > 1000 - minSpawnOffset));
-
-
         transform.position = newPosition;
-        _animator.SetInteger("State", 0);
+    }
+
+    private void OnGameStateChange(string propName)
+    {
+        if (propName == nameof(GameState.CoinCost))
+        {
+            Respawn();
+        }
+    }
+    private void OnDestroy()
+    {
+        GameState.Unsubscribe(OnGameStateChange);
     }
 }
