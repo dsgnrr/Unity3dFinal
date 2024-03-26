@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 public class GameState
@@ -68,6 +69,7 @@ public class GameState
         }
     }
     #endregion
+
     #region Score
     private static float _score;
     public static float Score
@@ -83,6 +85,7 @@ public class GameState
         }
     }
     #endregion
+
     #region CoinCost
     private static float _coinCost;
     public static float CoinCost => _coinCost;
@@ -92,6 +95,22 @@ public class GameState
         * (isRadarVisible ? 1f : 1.1f)
         * (isHintsVisible ? 1f : 1.1f)
         * (isHintsVisible || isRadarVisible || isCompassVisible ? 1f : 1.5f);
+    #endregion
+
+    #region GameMessages
+    private static List<GameMessage> gameMessages = new();
+    public static ReadOnlyCollection<GameMessage> GameMessages =>
+        new(gameMessages);
+    public static void AddGameMessage(GameMessage message)
+    {
+        gameMessages.Add(message);
+        NotifySubscribers(nameof(GameMessages));
+    }
+    public static void RemoveGameMessage(GameMessage message)
+    {
+        gameMessages.Remove(message);
+        NotifySubscribers(nameof(GameMessages));
+    }
     #endregion
     private static void OnCoinCostChange(string propName)
     {

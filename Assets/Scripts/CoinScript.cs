@@ -30,6 +30,7 @@ public class CoinScript : MonoBehaviour
     {
         GameState.Score += GameState.CoinCost;
         Respawn();
+        GameState.AddGameMessage(new() { Text = $"Collected {GameState.CoinCost:F1} coin" });
         _animator.SetInteger("State", 0);
     }
     private void Respawn()
@@ -62,6 +63,7 @@ public class CoinScript : MonoBehaviour
         if (propName == nameof(GameState.CoinCost))
         {
             Respawn();
+            GameState.AddGameMessage(new() { Text = $"Coin change cost: {GameState.CoinCost:F1}" });
         }
     }
     private void OnDestroy()
