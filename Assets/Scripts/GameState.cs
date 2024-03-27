@@ -112,6 +112,23 @@ public class GameState
         NotifySubscribers(nameof(GameMessages));
     }
     #endregion
+
+    #region IsNight
+    private static bool _isNight;
+    public static bool IsNight
+    {
+        get => _isNight;
+        set
+        {
+            if (_isNight != value)
+            {
+                _isNight = value;
+                NotifySubscribers(nameof(IsNight));
+            }
+        }
+    }
+    #endregion
+
     private static void OnCoinCostChange(string propName)
     {
         if (propName == nameof(isCompassVisible) ||

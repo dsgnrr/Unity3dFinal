@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    [SerializeField]
+    private AudioMixer audioMixer;
     [SerializeField]
     private Toggle compassToggle;
     [SerializeField]
@@ -13,6 +16,8 @@ public class PauseMenuScript : MonoBehaviour
     private Toggle hintsToggle;
     [SerializeField]
     private GameObject content;
+    [SerializeField]
+    private Toggle muteAllToggle;
 
     void Start()
     {
@@ -24,6 +29,7 @@ public class PauseMenuScript : MonoBehaviour
         {
             GameState.UpdateCoinCost();
         }
+        OnMuteAllChange(muteAllToggle.isOn);
     }
 
     void Update()
@@ -59,5 +65,22 @@ public class PauseMenuScript : MonoBehaviour
     public void OnResumePressed()
     {
         ChangePause(false);
+    }
+    
+    public void OnAmbientVolumeChange(float volume)
+    {
+
+    }
+    public void OnEffectsVolumeChange(float volume)
+    {
+
+    }
+    public void OnMusicVolumeChange(float volume)
+    {
+
+    }
+    public void OnMuteAllChange(bool mute)
+    {
+        audioMixer.SetFloat("MasterVolume", mute ? -80 : 0);
     }
 }

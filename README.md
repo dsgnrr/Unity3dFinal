@@ -1,5 +1,11 @@
 # FinalProject tasks
 
+## Task14: Sounds
+* Mute all is false <br>
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task14/result1.png) <br>
+* Mute all is true <br>
+![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task14/result2.png) <br>
+
 ## Task13: Game messages
 ![alt](https://github.com/dsgnrr/Unity3dFinal/blob/main/Tasks/task13/result.gif)
 

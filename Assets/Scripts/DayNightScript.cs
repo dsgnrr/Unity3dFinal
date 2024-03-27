@@ -29,8 +29,8 @@ public class DayNightScript : MonoBehaviour
             dayPhase -= 1f;
         }
         this.transform.eulerAngles = new Vector3(0, 0, 360 * dayPhase);
-        bool isNight = dayPhase > 0.25f && dayPhase < 0.75f;
-        if (isNight)
+        GameState.IsNight = dayPhase > 0.25f && dayPhase < 0.75f;
+        if (GameState.IsNight)
         {
             if (RenderSettings.skybox != nightSkybox)
             {
@@ -46,7 +46,7 @@ public class DayNightScript : MonoBehaviour
             }
         }
         float k = LuxFactor(dayPhase);
-        sun.intensity = RenderSettings.ambientIntensity = isNight ? k * nightFactor : k;
+        sun.intensity = RenderSettings.ambientIntensity = GameState.IsNight ? k * nightFactor : k;
         RenderSettings.skybox.SetFloat("_Exposure", k);
 
     }
