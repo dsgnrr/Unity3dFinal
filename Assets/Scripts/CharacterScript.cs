@@ -12,11 +12,13 @@ public class CharacterScript : MonoBehaviour
 
     private CharacterController _characterController;
     private Animator _animator;
+    private AudioSource _stepsAudioSource;
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         playerVelocityY = 0f;
+        _stepsAudioSource = GetComponent<AudioSource>();
 
     }
     void Update()
@@ -91,6 +93,18 @@ public class CharacterScript : MonoBehaviour
         if (groundedPlayer)
         {
             _animator.SetInteger("State", animatorState);
+        }
+
+        if (Time.timeScale > 0 && (animatorState == 1 || animatorState == 2))
+        {
+            if (!_stepsAudioSource.isPlaying)
+            {
+                _stepsAudioSource.Play();
+            }
+        }
+        else
+        {
+            _stepsAudioSource.Stop();
         }
     }
     private void OnTriggerEnter(Collider other)
