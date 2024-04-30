@@ -14,7 +14,7 @@ public class ScoreScript : MonoBehaviour
     {
         if (propName == nameof(GameState.Score))
         {
-            textScore.text = GameState.Score.ToString("0000.0");
+            textScore.text = GameState.Score.ToString("0000");
         }
     }
     private void OnDestroy()

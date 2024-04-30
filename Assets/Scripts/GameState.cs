@@ -22,6 +22,20 @@ public class GameState
     }
     #endregion
 
+    private static int _giantCount;
+    public static int GiantCount
+    {
+        get => _giantCount;
+        set
+        {
+            if(_giantCount != value)
+            {
+                _giantCount = value;
+                NotifySubscribers(nameof(GiantCount));
+            }
+        }
+    }
+
     #region isCompassVisible
     private static bool _isCompassVisible;
     public static bool isCompassVisible
@@ -147,3 +161,4 @@ public class GameState
     private static void NotifySubscribers(String propName) =>
         Subscribers.ForEach(action => action(propName));
 }
+

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -7,7 +9,9 @@ using UnityEngine.UI;
 public class PauseMenuScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject content;   
+    private GameObject content;
+    private const String configFilename = "Assets/Files/config.json";
+    private SaveData saveObj;
 
     void Start()
     {
@@ -35,7 +39,38 @@ public class PauseMenuScript : MonoBehaviour
     {
         ChangePause(false);
     }
-    
+    public void OnSave()
+    {
+        saveObj = new SaveData();
+        saveObj.mute = muteAllToggle.isOn;
+        saveObj.ambient = ambientSlider.value;
+        saveObj.music = musicSlider.value;
+        saveObj.effets = effectsSlider.value;
+        System.IO.File.WriteAllText(configFilename, saveObj.toJson());
+    }
+    public void OnExit() 
+    {
+        if (Application.isEditor)
+        {
+            EditorApplication.ExitPlaymode();
+        }
+        else
+        {
+            Application.Quit(0);
+        }
+    }
+    public bool LoadSettings()
+    {
+        if (System.IO.File.Exists(configFilename))
+        {
+            saveObj = new();
+            saveObj.FromJson(
+                System.IO.File.ReadAllText(configFilename));
+            return true;
+        }
+        return false;
+    }
+
     #region SoundsSettings
     [SerializeField]
     private AudioMixer audioMixer;
@@ -52,16 +87,26 @@ public class PauseMenuScript : MonoBehaviour
 
     private MusicSoundsScript musicSoundsScript;
 
-
+    //public void SaveSettings()
+    //{
+    //    System.IO.File.WriteAllText(configFilename, GameState.toJson());
+    //}
     private void StartSounds()
     {
+        if (LoadSettings())
+        {
+            muteAllToggle.isOn = saveObj.mute;
+            ambientSlider.value = saveObj.ambient;
+            musicSlider.value = saveObj.music;
+            effectsSlider.value = saveObj.effets;
+        }
         OnMuteAllChange(muteAllToggle.isOn);
         OnAmbientVolumeChange(ambientSlider.value);
         OnEffectsVolumeChange(effectsSlider.value);
         OnMusicVolumeChange(musicSlider.value);
         musicSoundsScript = GameObject.Find("MusicSounds").GetComponent<MusicSoundsScript>();
         clipsDropdown.options.Clear();
-        foreach(var clip in musicSoundsScript.audioClips)
+        foreach (var clip in musicSoundsScript.audioClips)
         {
             clipsDropdown.options.Add(new(clip.name));
         }
@@ -134,4 +179,25 @@ public class PauseMenuScript : MonoBehaviour
     }
 
     #endregion
+}
+[Serializable]
+public class SaveData
+{
+    public float ambient;
+    public float music;
+    public float effets;
+    public bool mute;
+    public string toJson()
+    {
+        Debug.Log(JsonUtility.ToJson(this));
+        return JsonUtility.ToJson(this);
+    }
+    public void FromJson(String json)
+    {
+        var data = JsonUtility.FromJson<SaveData>(json);
+        ambient = data.ambient;
+        music = data.music;
+        effets = data.effets;
+        mute = data.mute;
+    }
 }
